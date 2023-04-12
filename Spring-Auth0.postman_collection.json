@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "c11925be-a107-4cdc-b228-0a6ef554c9f7",
+		"name": "Spring-Auth0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3572069"
+	},
+	"item": [
+		{
+			"name": "Get Access Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200){  //pmはpostmanの値を取得する変数",
+							"    pm.collectionVariables.set('access_token', pm.response.json().access_token)",
+							"}　//'access_token'変数にJSONトークンを設定",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"client_id\": \"HNYYiyd5MAgb7JWuC3g4eU3AE10g6v2x\",\n    \"client_secret\":\"vRyJOzADVSXyBh7NzDRnsvfK7sQ-1mLzqs9ALYqHn_gt9jeQo6aq0TnFAcaKKYqY\",\n    \"audience\":\"http://localhost:8080\",\n    \"username\": \"kim.sys.test@gmail.com\",\n    \"password\": \"kim-sys-test\",\n    \"grant_type\":\"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-vy8siz1eicf5nds5.jp.auth0.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"dev-vy8siz1eicf5nds5",
+						"jp",
+						"auth0",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "heath",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "audience",
+				"value": {
+					"cde020a9-cde6-49ed-9d23-75bbe4841f53": "http://localhost:8080"
+				},
+				"type": "any"
+			},
+			{
+				"key": "password",
+				"value": "Kdh10210",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://dev-vy8siz1eicf5nds5.jp.auth0.com/oauth/token",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "just.k87@gmail.com",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "password_credentials",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "vRyJOzADVSXyBh7NzDRnsvfK7sQ-1mLzqs9ALYqHn_gt9jeQo6aq0TnFAcaKKYqY",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "HNYYiyd5MAgb7JWuC3g4eU3AE10g6v2x",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
